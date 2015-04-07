@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Cosmovis Network</title>
+  <link rel="stylesheet" href="css/style.css"/>
+ </head>
+ <body>
+  <canvas id='Cosmovisnetwork' width=1200 height=800></canvas>
+  <script>
+  
+  var loadedData = [
+	/* happy */
+	["달콤하다",007,383,0],
+	["신나다",895,232,0],
+	["유쾌하다",994,121,0],
+	["재미있다",807,281,0],
+	["즐겁다",1010,239,80],
+	["통쾌하다",770,139,0],
+	["행복하다",923,328,0],
+	["활기있다",868,62,0],
+	["환상적이다",853,158,0],
+	/* surprise */
+	["감격스럽다",874,546,0],
+	["감동적이다",816,494,0],
+	["경이롭다",861,438,0],
+	["굉장하다",768,430,0],
+	["놀라다",696,224,0],
+	["대단하다",927,481,0],
+	["황홀하다",780,367,0],
+	
+	/* disgust */
+	["구역질나다",278,221,0],	
+	["불결하다",231,271,0],
+	["잔인하다",304,283,0],
+	
+	/* boring */
+	["평온하다",717,560,0],
+	["나른하다",769,585,0],
+	["지루하다",675,595,0],
+	
+	/* anger */
+	["격분하다",190,388,0],
+	["분노하다",112,353,0],
+	
+	/* sad */
+	["가슴아프다",374,511,0],
+	["서글프다",490,608,0],
+	["슬프다",418,560,0],
+	["쓸쓸하다",571,599,0],
+	["안타깝다",523,561,0],
+	["애석하다",261,470,0],
+	
+	/* fear */
+	["공포스럽다",403,150,0],
+	["등골이서늘하다",502,104,0],
+	["무섭다",424,77,0],
+	["무시무시하다",459,208,0],
+	["소름끼치다",600,126,0],
+	["오싹하다",535,166,0],
+	];
+
+	var canvas = document.getElementById("Cosmovisnetwork");
+	var ctx = canvas.getContext('2d');
+	var canvasWidth = canvas.width;
+	var canvasHeight = canvas.height;
+
+	document.body.onload = function(){	
+	"use strict";
+	
+	ctx.fillStyle = "rgb(230,240,255)";
+
+	ctx.fill();
+	ctx.font = "15px Malgun Gothic";
+	ctx.fontStyle = 2;
+	ctx.strokeStyle = "black"
+	ctx.fillStyle = "white";
+	ctx.textAlign = "center";
+	for(var i = 0; i < loadedData.length; i++){
+		ctx.strokeText(loadedData[i][0],loadedData[i][1],loadedData[i][2]);
+	}
+	ctx.fill();
+	}
+
+	
+		
+
+  </script>
+
+ </body>
+</html>
