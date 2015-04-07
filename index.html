@@ -10,10 +10,11 @@
   <link rel="stylesheet" href="css/style.css"/>
  </head>
  <body>
-  <canvas id='Cosmovisnetwork' width=1200 height=800></canvas>
+  <canvas id='nCanvas' width=1200 height=800></canvas>
+  <!--canvas의 선언 밑으로는 그리는 거 -->
   <script>
-  
-  var loadedData = [
+ 
+  var loadedData = [ //감정의 위치 데이터
 	/* happy */
 	["달콤하다",007,383,0],
 	["신나다",895,232,0],
@@ -64,8 +65,8 @@
 	["오싹하다",535,166,0],
 	];
 
-	var canvas = document.getElementById("Cosmovisnetwork");
-	var ctx = canvas.getContext('2d');
+	var canvas = document.getElementById("nCanvas");//nCanvas의 ID를 사용해서 변수 지정해준다.
+	var ctx = canvas.getContext('2d');//
 	var canvasWidth = canvas.width;
 	var canvasHeight = canvas.height;
 
