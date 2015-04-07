@@ -11,12 +11,13 @@
  </head>
  <body>
   <canvas id='nCanvas' width=1200 height=800></canvas>
-  <!--canvas의 선언 밑으로는 그리는 거 -->
+  <!-- Canvas Size : 1200 * 800 -->
   <script>
- 
-  var loadedData = [ //감정의 위치 데이터
+
+  /*36개 감정어휘 MDS상의 고정 위치값*/
+  var loadedData = [ 
 	/* happy */
-	["달콤하다",007,383,0],
+	["달콤하다",1007,383,0],
 	["신나다",895,232,0],
 	["유쾌하다",994,121,0],
 	["재미있다",807,281,0],
@@ -65,29 +66,33 @@
 	["오싹하다",535,166,0],
 	];
 
-	var canvas = document.getElementById("nCanvas");//nCanvas의 ID를 사용해서 변수 지정해준다.
-	var ctx = canvas.getContext('2d');//
-	var canvasWidth = canvas.width;
-	var canvasHeight = canvas.height;
+	/*canvas 관련 변수 지정*/
+	var canvas = document.getElementById("nCanvas");//canvas 변수 지정(ID:nCanvas)
+	var ctx = canvas.getContext('2d');//context는 2D로
+	var canvasWidth = canvas.width;//canvasWidth 변수 생성 및 초기화
+	var canvasHeight = canvas.height;//canvasHeight 변수 생성 및 초기화
 
 	document.body.onload = function(){	
-	"use strict";
+	"use strict"; //if 불안정한 경우 발생하면, 비활성화
 	
+	/*canvas 색 채우기*/
 	ctx.fillStyle = "rgb(230,240,255)";
+	ctx.fillRect(0,0,canvasWidth,canvasHeight);
+	// ctx.fill();
 
-	ctx.fill();
+	/*canvas 내부 text, font 지정*/
 	ctx.font = "15px Malgun Gothic";
-	ctx.fontStyle = 2;
-	ctx.strokeStyle = "black"
-	ctx.fillStyle = "white";
-	ctx.textAlign = "center";
+	ctx.strokeStyle = "black";//font 테두리색
+	ctx.fillStyle = "white";//font 내부색
+	ctx.textAlign = "center";//가운데정렬
+
+	/*MDS 감정어휘 위치값 대입*/
 	for(var i = 0; i < loadedData.length; i++){
-		ctx.strokeText(loadedData[i][0],loadedData[i][1],loadedData[i][2]);
+		ctx.strokeText(loadedData[i][0],loadedData[i][1],loadedData[i][2]);//텅빈 글씨
+		//ctx.fillText(loadedData[i][0],loadedData[i][1],loadedData[i][2]);//채운 글씨
 	}
 	ctx.fill();
-	}
-
-	
+	};
 		
 
   </script>
