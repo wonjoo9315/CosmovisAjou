@@ -1,21 +1,21 @@
 <!doctype html>
 <html lang="en">
- <head>
-  <meta charset="UTF-8">
-  <meta name="Generator" content="EditPlus®">
-  <meta name="Author" content="">
-  <meta name="Keywords" content="">
-  <meta name="Description" content="">
-  <title>Cosmovis Network</title>
-  <link rel="stylesheet" href="css/style.css"/>
- </head>
- <body>
-  <canvas id='nCanvas' width=1200 height=800></canvas>
-  <!-- Canvas Size : 1200 * 800 -->
-  <script>
+<head>
+	<meta charset="UTF-8">
+	<meta name="Generator" content="EditPlus®">
+	<meta name="Author" content="">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<title>Cosmovis Network</title>
+	<link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+	<canvas id='nCanvas' width=1200 height=800></canvas>
+	<!-- Canvas Size : 1200 * 800 -->
+	<script>
 
-  /*36개 감정어휘 MDS상의 고정 위치값*/
-  var loadedData = [ 
+	/*36개 감정어휘 MDS상의 고정 위치값*/
+	var loadedData = [ 
 	/* happy */
 	["달콤하다",1007,383,0],
 	["신나다",895,232,0],
@@ -87,15 +87,22 @@
 	ctx.textAlign = "center";//가운데정렬
 
 	/*MDS 감정어휘 위치값 대입*/
-	for(var i = 0; i < loadedData.length; i++){
+	for(var i = 0; i < loadedData.length; i++)
+	{
 		ctx.strokeText(loadedData[i][0],loadedData[i][1],loadedData[i][2]);//텅빈 글씨
 		//ctx.fillText(loadedData[i][0],loadedData[i][1],loadedData[i][2]);//채운 글씨
 	}
 	ctx.fill();
-	};
-		
 
-  </script>
+	// ctx.beginPath();
+	ctx.fillStyle = "black";//내부색
+	ctx.arc(canvasWidth/2,canvasHeight/2,10,0,2*Math.PI);
+	ctx.fill();
+};
 
- </body>
+
+
+</script>
+
+</body>
 </html>
