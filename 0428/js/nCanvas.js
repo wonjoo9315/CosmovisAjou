@@ -179,7 +179,7 @@ function tempNode (_name, _posX, _posY, _dx, _dy){
 	}
 
 
-	loadJSON('CosmovisAjou/js/Moviedata.json',
+	loadJSON('./js/Moviedata.json',
          function(data) { 
 			// console.log(data); //data input 확인
 			 for(var i = 0;i<num_movie;i++){
