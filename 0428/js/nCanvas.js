@@ -1,3 +1,5 @@
+//last work	:2015-05-11
+	
 	/*36개 감정어휘 MDS상의 고정 위치값*/
 	var loadedData = [ 
 	/* happy */
@@ -73,17 +75,19 @@
 
 // };
 
-
-//---------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------
 window.onload = function(){
 	"use strict"; //if 불안정한 경우 발생하면, 비활성화
 	// windowResizing();
-	initApp();
+	initApp(5);
 	// updateApp();
 };
 
-function initApp(){
+function initApp(num_movie){
 	// Canvas.loadContent();
+	for(var i = 0;i<num_movie;i++){
+	node[i] = new tempNode('',0,0,0,0);
+	}
 	CanvasOne.init();
 }
 
@@ -134,6 +138,104 @@ var CanvasOne = {}
 		}
 		ctx.fill();
 	};
+//----------------------------------------------------------------------------------
+//Position
+
+//---------------------------------------------------------------------------------
+var node = new Array(); //total node
+
+function tempNode (_name, _posX, _posY, _dx, _dy){
+	this.name = _name; 
+	this.posX = _posX;
+	this.posY = _posY;
+	this.dx = _dx;
+	this.dy = _dy;
+
+}
+
+
+//----------------------------------------------------------------------------------
+
+	var num_movie = 5;
+
+
+	function loadJSON(path, success, error)
+	{
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function()
+		{
+			if (xhr.readyState === XMLHttpRequest.DONE) {
+				if (xhr.status === 200) {
+					if (success)
+						success(JSON.parse(xhr.responseText));
+				} else {
+					if (error)
+						error(xhr);
+				}
+			}
+		};
+		xhr.open("GET", path, true);
+		xhr.send();
+	}
+
+
+	loadJSON('CosmovisAjou/js/Moviedata.json',
+         function(data) { 
+			// console.log(data); //data input 확인
+			 for(var i = 0;i<num_movie;i++){
+				node[i].name = data[i].Title;
+				 }
+				 console.log(node[0].posX);
+			 },
+         function(xhr) { console.error(xhr); }
+	);//END loadJSON
+
+var Canvas_width = 1200;
+var Canvas_height = 800;
+
+	
+function setRandomPos(num_movie){ 
+	for(var j=0; j<num_movie; j++){
+		node[j].posX=((Math.random()*(Canvas_width-5))+5);
+		node[j].posY=((Math.random()*Canvas_height-5)+5);
+		console.log(node[0].posX);
+		//Senti_disp_A[j] = 0;
+	}//변수값 초기화
+}
+
+//감정어와의 위치값 계산
+var temp = [0,0];//임시변수
+function F_A(value){
+	var k =50;//프레임의 넓이를 총 노드의 개수로 나눈 값의 제곱근을 상수 C를 곱한 값이나 상수지정_헬로모카참조
+	value*value/k
+}
+function moveSentiWord(num_node,sword){
+		/*함수로 temp값 retren하게 해서 계산하자
+		temp = 
+		Senti_disp_A[j] = Senti_disp_A[j]*/
+		/*
+		if(Math.abs(temp[0])==0)
+			temp[0]=0.0001;
+		if(Math.abs(temp[1])==0)
+			temp[1]=0.0001;
+			//이걸 넣으면 무한대가 나오고 안넣으면 nan이 뜸 좀더 생각해 보자.
+			*/
+
+		temp[0]=node[num_node].posX - loadedData[sword][1];//달콤하다의 posX
+		temp[1]=node[num_node].posY - loadedData[sword][2];//달콤하다의 posY
+		node[num_node].dx = node[num_node].dx-(temp[0]/Math.abs(temp[0]))*((temp[0])*(temp[0])/50);
+		console.log(node[num_node].dx);
+		console.log(temp[0]/Math.abs(temp[0]));
+		console.log(((temp[0])*(temp[0])/50));
+		node[num_node].dy = node[num_node].dy-(temp[1]/Math.abs(temp[1]))*((temp[1])*(temp[1])/50);
+
+		node[num_node].posX = node[num_node].posX+node[num_node].dx;
+		node[num_node].posY = node[num_node].posY+node[num_node].dy;
+
+		console.log(node[num_node].dx);
+	
+}
+//***작업중***
 
 
 	CanvasOne.setStartPos = function(){
@@ -141,9 +243,38 @@ var CanvasOne = {}
 		/*영화의 위치정보*/
 		ctx = this.Context;
 
-		// ctx.beginPath();
+		ctx.beginPath();
 		ctx.fillStyle = "black";//내부색
-		ctx.arc(this.Canvas.width/2,this.Canvas.height/2,10,0,2*Math.PI);
+		ctx.arc(this.Canvas.width/2,this.Canvas.height/2,5,0,2*Math.PI);
+		ctx.closePath();
 		ctx.fill();
+		//ctx.beginPath();
+		setRandomPos(5);
+		/*감정어 영향
+		for(var s=0;s<36;s++)//s=감정어의 갯수
+		{moveSentiWord(0,s);
+		console.log(s+1 + "번째 감정어");
+		}
+		*/
+		console.log(node[0].dx);
+		for(var k=0; k<num_movie; k++)
+		{
+			
+			ctx.beginPath();
+			ctx.arc(node[k].posX,node[k].posY,5,0,2*Math.PI);
+			console.log(node[k].posX);
+			ctx.closePath();
+			ctx.fill();
+			if(k==0)
+				ctx.fillStyle = "Yellow";
+			else
+				ctx.fillStyle = "black";
 
-	};
+		}
+		//ctx.fill();
+		//ctx.stroke;
+
+	};//END CanvasOne.setStartPos
+
+	
+
