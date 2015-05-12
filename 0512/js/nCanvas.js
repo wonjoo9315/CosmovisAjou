@@ -143,7 +143,7 @@ var CanvasOne = {}
 
 //---------------------------------------------------------------------------------
 var node = new Array(); //total node
-
+var num_movie = 0;
 function tempNode (_name, _posX, _posY, _dx, _dy){
 	this.name = _name; 
 	this.posX = _posX;
@@ -155,40 +155,38 @@ function tempNode (_name, _posX, _posY, _dx, _dy){
 
 
 //----------------------------------------------------------------------------------
-
-	var num_movie = 5;
-
-
-	function loadJSON(path, success, error)
+function loadJSON(path, success, error)
+{
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function()
 	{
-		var xhr = new XMLHttpRequest();
-		xhr.onreadystatechange = function()
-		{
-			if (xhr.readyState === XMLHttpRequest.DONE) {
-				if (xhr.status === 200) {
-					if (success)
-						success(JSON.parse(xhr.responseText));
-				} else {
-					if (error)
-						error(xhr);
-				}
+		if (xhr.readyState === XMLHttpRequest.DONE) {
+			if (xhr.status === 200) {
+				if (success)
+					success(JSON.parse(xhr.responseText));
+			} else {
+				if (error)
+					error(xhr);
 			}
-		};
-		xhr.open("GET", path, true);
-		xhr.send();
-	}
+		}
+	};
+	xhr.open("GET", path, true);
+	xhr.send();
+}
 
 
-	loadJSON('CosmovisAjou/js/Moviedata.json',
-         function(data) { 
-			// console.log(data); //data input 확인
-			 for(var i = 0;i<num_movie;i++){
-				node[i].name = data[i].Title;
-				 }
-				 console.log(node[0].posX);
-			 },
-         function(xhr) { console.error(xhr); }
-	);//END loadJSON
+loadJSON('./js/Moviedata.json',
+	 function(data) { 
+		// console.log(data); //data input 확인
+		 for(var i = 0;i<num_movie;i++){
+			node[i].name = data[i].Title;
+			 }
+			 num_movie = data.length;
+			 console.log(node[0].posX);
+			 console.log(num_movie);
+		 },
+	 function(xhr) { console.error(xhr); }
+);//END loadJSON
 
 var Canvas_width = 1200;
 var Canvas_height = 800;
@@ -228,7 +226,6 @@ function moveSentiWord(num_node,sword){
 		console.log(temp[0]/Math.abs(temp[0]));
 		console.log(((temp[0])*(temp[0])/50));
 		node[num_node].dy = node[num_node].dy-(temp[1]/Math.abs(temp[1]))*((temp[1])*(temp[1])/50);
-
 		node[num_node].posX = node[num_node].posX+node[num_node].dx;
 		node[num_node].posY = node[num_node].posY+node[num_node].dy;
 
@@ -250,16 +247,15 @@ function moveSentiWord(num_node,sword){
 		ctx.fill();
 		//ctx.beginPath();
 		setRandomPos(5);
-		/*감정어 영향
+		//감정어영향
 		for(var s=0;s<36;s++)//s=감정어의 갯수
 		{moveSentiWord(0,s);
 		console.log(s+1 + "번째 감정어");
 		}
-		*/
+		
 		console.log(node[0].dx);
 		for(var k=0; k<num_movie; k++)
 		{
-			
 			ctx.beginPath();
 			ctx.arc(node[k].posX,node[k].posY,5,0,2*Math.PI);
 			console.log(node[k].posX);
